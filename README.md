@@ -35,12 +35,13 @@ user Id sesuaikan dengan id user yanng ingin ditampilkan
 
 4. Menghapus Data User dan Profile
 DELETE http://localhost:4000/api/v1/users/:userId 
-userId ganti sesuia id user yang ingin dihapus
+userId ganti sesuai id user yang ingin dihapus
+jika ingin menghapus user, hapus terlebih dahulu profilenya
 
-5. Menampilkan Profil Berdasarkan userId
+5. Menampilkan Profile Berdasarkan userId
 GET http://localhost:4000/api/v1/profiles/:userId
 
-6. Membuat Profil Baru
+6. Membuat Profile Baru
 POST http://localhost:4000/api/v1/profiles/:userId/profile
 {
     "identity_type": "KTP",
@@ -48,7 +49,10 @@ POST http://localhost:4000/api/v1/profiles/:userId/profile
     "address": "Jl. Contoh No. 1"
 }
 
-7. Membuat Akun Baru
+7. Menghapus Profile
+DELETE http://localhost:4000/api/v1/profiles/:userId/profile
+
+8. Membuat Akun Baru
 POST http://localhost:4000/api/v1/accounts
 {
     "user_id": 1,
@@ -56,21 +60,21 @@ POST http://localhost:4000/api/v1/accounts
     "bank_account_number": "1234567890"
 }
 
-8. Menampilkan Daftar Akun
+9. Menampilkan Daftar Akun
 GET http://localhost:4000/api/v1/accounts
 
-9. Menampilkan Detail Akun
+10. Menampilkan Detail Akun
 GET http://localhost:4000/api/v1/accounts/:accountId
 accountId ganti dengan id akun yang ingin ditampilkan
 
-10. Melakukan Deposit dan WIthdraw
+11. Melakukan Deposit dan WIthdraw
 POST http://localhost:4000/api/v1/accounts/deposit(atau /withdraw jika ingin melakukan pengurangan saldo)
 {
     "accountId": 1,
     "amount": 5000
 }
 
-11. Mengirimkan Uang dari Satu Akun ke Akun Lain
+12. Mengirimkan Uang dari Satu Akun ke Akun Lain
 POST http://localhost:4000/api/v1/transactions
 {
     "source_account_id": 1,
@@ -78,8 +82,8 @@ POST http://localhost:4000/api/v1/transactions
     "amount": 100000
 }
 
-12. Menampilkan Daftar Transaksi
+13. Menampilkan Daftar Transaksi
 GET http://localhost:4000/api/v1/transactions
 
-13. Menampilkan Detail Transaksi Berdasarkan transactionId
+14. Menampilkan Detail Transaksi Berdasarkan transactionId
 http://localhost:4000/api/v1/transactions/:transactionId
