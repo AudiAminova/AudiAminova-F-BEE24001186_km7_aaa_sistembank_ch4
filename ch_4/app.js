@@ -1,10 +1,16 @@
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
-import userRoutes from './routers/user.js';
-import bankAccountRoutes from './routers/bank_account.js';
-import profileRoutes from './routers/profile.js';
-import transactionRoutes from './routers/transaction.js';
+import userRoutes from './routes/user.js';
+import bankAccountRoutes from './routes/bank_account.js';
+import profileRoutes from './routes/profile.js';
+import transactionRoutes from './routes/transaction.js';
+import authRoutes from './routes/authRoutes.js';
+import session from 'express-session';
+import flash from 'express-flash';
+import passport from 'passport';
+import './src/passport-setup.js';
+import swaggerSetup from './swagger.js';
 
 const app = express();
 const port = 4000;
@@ -14,11 +20,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.set('views', path.join(process.cwd(), 'views'));
 app.set('view engine', 'ejs');
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false },
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+swaggerSetup(app);
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/accounts', bankAccountRoutes);
 app.use('/api/v1/profiles', profileRoutes);
 app.use('/api/v1/transactions', transactionRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 // error handling
 app.use((err, req, res, next) => {
@@ -33,7 +51,18 @@ app.use((err, req, res, next) => {
       });
     }
   });
+
+// untuk memberikan pesan flash ke response
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg') || ''; 
+  res.locals.error_msg = req.flash('error_msg') || '';  
+  console.log('Error message:', res.locals.error_msg); 
+  next();
+});
   
   app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running on port http://localhost:${port}`);
+    console.log(`API Documentation available at http://localhost:${port}/api-docs`);
   });
+
+export default app;
