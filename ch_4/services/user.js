@@ -1,4 +1,5 @@
 import { prisma } from '../src/PrismaClient.js';
+import bcrypt from 'bcrypt';
 
 class User {
   id = null;
@@ -14,11 +15,13 @@ class User {
 
   // metode register untuk mendaftarkan user baru ke dalam database
   async register() {
+    const encryptedPassword = await bcrypt.hash(this.password, 10);
+
     const newUser = await prisma.user.create({
       data: {
         name: this.name,
         email: this.email,
-        password: this.password,
+        password: encryptedPassword,
       },
     });
     this.id = newUser.id;

@@ -87,3 +87,45 @@ GET http://localhost:4000/api/v1/transactions
 
 14. Menampilkan Detail Transaksi Berdasarkan transactionId
 http://localhost:4000/api/v1/transactions/:transactionId
+
+Challenge Chapter 5
+1. Registerasi User
+POST http://localhost:4000/api/v1/auth/register
+{
+    "name": "bubu",
+    "email": "bubu@gmail",
+    "password": "bubu23"
+}
+
+2. Login User
+POST http://localhost:4000/api/v1/auth/login
+{
+    "email": "bubu@gmail",
+    "password": "bubu23"
+}
+
+respons: akan mendapatkan token
+
+3. Whoami
+GET http://localhost:4000/api/v1/auth/whoami
+Copy token -> pilih Auth -> Bearer token -> masukkan token -> send
+
+4. Menggunakan JWT untuk request ke Bank Account
+Belum berhasil, error:
+PrismaClientValidationError: 
+Invalid `prisma.bankAccount.findUnique()` invocation:
+
+{
+  where: {
++   id: Int
+  }
+}
+
+Argument `id` is missing.
+
+5. Melihat API Documentation
+/ch_4 -> node app.js -> follow link http://localhost:4000/api-docs
+
+6. Unit Testing (jest) dan Integration Testing (supertest)
+Endpoit yang di test adalah POST /api/v1/users
+/ch_4 -> npm run test

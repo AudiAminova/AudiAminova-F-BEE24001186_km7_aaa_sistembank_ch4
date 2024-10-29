@@ -1,0 +1,793 @@
+{
+  "info": {
+    "description": "Banking System",
+    "title": "Swagger API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:undefined",
+  "basePath": "/api/v1",
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "paths": {
+    "/api/v1/auth/register": {
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Render register page"
+          }
+        },
+        "summary": "Render registration page"
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "User's full name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "User's password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "400": {
+            "description": "Email sudah digunakan"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Register user"
+      }
+    },
+    "/api/v1/auth/login": {
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Render login page"
+          }
+        },
+        "summary": "Render login page"
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User login data",
+            "required": true,
+            "type": "object"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's password",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Password salah"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Log in a user"
+      }
+    },
+    "/api/v1/auth/dashboard": {
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Render dashboard page"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "summary": "Render user dashboard"
+      }
+    },
+    "/api/v1/auth/whoami": {
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the authenticated user's information"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get information about the currently authenticated user"
+      }
+    },
+    "/api/v1/accounts": {
+      "post": {
+        "parameters": [
+          {
+            "name": "bankAccount",
+            "in": "body",
+            "description": "Account data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BankAccount"
+            }
+          },
+          {
+            "name": "bankAccount",
+            "in": "body",
+            "description": "User's ID (e.g., 1)",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "bankAccount",
+            "in": "body",
+            "description": "User's bank name (e.g., \"Bank Mandiri\")",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bankAccount",
+            "in": "body",
+            "description": "User's bank account number (e.g., \"1234567890\")",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bankAccount",
+            "in": "body",
+            "description": "User's account balance (e.g., 10000)",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created bank account"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Create a new bank account"
+      },
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of accounts",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BankAccount"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get all accounts"
+      }
+    },
+    "/api/v1/accounts/:accountId": {
+      "get": {
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The ID of the account",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Account Detail"
+          },
+          "404": {
+            "description": "Account not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get account detail by Account ID"
+      }
+    },
+    "/api/v1/accounts/deposit": {
+      "post": {
+        "parameters": [
+          {
+            "name": "deposit",
+            "in": "body",
+            "description": "Deposit data",
+            "required": true,
+            "type": "object"
+          },
+          {
+            "name": "deposit",
+            "in": "body",
+            "description": "The ID of the account to deposit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "deposit",
+            "in": "body",
+            "description": "The amount to deposit (harus lebih besar dari nol)",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deposit Berhasil"
+          },
+          "400": {
+            "description": "Jumlah deposit harus lebih besar dari nol"
+          },
+          "404": {
+            "description": "Account not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Deposit money into an account"
+      }
+    },
+    "/api/v1/accounts/withdraw": {
+      "post": {
+        "parameters": [
+          {
+            "name": "withdraw",
+            "in": "body",
+            "description": "Withdraw data",
+            "required": true,
+            "type": "object"
+          },
+          {
+            "name": "withdraw",
+            "in": "body",
+            "description": "The ID of the account to withdraw",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "withdraw",
+            "in": "body",
+            "description": "The amount to withdraw",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Penarikan saldo berhasil"
+          },
+          "400": {
+            "description": "Saldo tidak mencukupi"
+          },
+          "404": {
+            "description": "Account not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Withdraw money into an account"
+      }
+    },
+    "/api/v1/accounts/bank-account": {
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Account not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Retrieve bank account details for the authenticated user"
+      }
+    },
+    "/api/v1/profiles/:userId": {
+      "get": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Profiles"
+        ],
+        "responses": {
+          "200": {
+            "description": "User's detail with profile"
+          },
+          "404": {
+            "description": "Profile not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get profile detail by User ID"
+      }
+    },
+    "/api/v1/profiles/:userId/profile": {
+      "post": {
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Type of identity (e.g., KTP, KK)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Unique identity number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's address",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Profiles"
+        ],
+        "responses": {
+          "201": {
+            "description": "Profile berhasil dibuat"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Create a new profile for an existing user"
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Profiles"
+        ],
+        "responses": {
+          "204": {
+            "description": "Profile successfully deleted"
+          },
+          "404": {
+            "description": "Profile not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Delete a user's profile"
+      }
+    },
+    "/api/v1/transactions": {
+      "post": {
+        "parameters": [
+          {
+            "name": "transaction",
+            "in": "body",
+            "description": "Transaction data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          },
+          {
+            "name": "transaction",
+            "in": "body",
+            "description": "The ID of the source account",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "transaction",
+            "in": "body",
+            "description": "The ID of the destination account",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "transaction",
+            "in": "body",
+            "description": "The amount to transfer (must be greater than zero)",
+            "required": false,
+            "type": "number"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Transactions"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful transaction"
+          },
+          "400": {
+            "description": "Saldo tidak mencukupi"
+          },
+          "404": {
+            "description": "Akun sumber atau tujuan tidak ditemukan"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Transfer money from one account to another account\n/"
+      },
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Transactions"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of transactions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Transaction"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get all transactions\n/"
+      }
+    },
+    "/api/v1/transactions/:transactionId": {
+      "get": {
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "The ID of the transaction",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Transactions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction detail"
+          },
+          "404": {
+            "description": "Transaction not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get transaction detail by Transaction ID\n/"
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Profile information",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Type of identity (e.g., KTP, KK)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Unique identity number",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User's address",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created user"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Create a new user and a new profile"
+      },
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get all users"
+      }
+    },
+    "/api/v1/users/:userId": {
+      "get": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User's detail with profile"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get user detail by ID"
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully deleted"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Delete a user by ID"
+      }
+    }
+  },
+  "definitions": {
+
+  },
+  "responses": {
+
+  },
+  "parameters": {
+
+  },
+  "securityDefinitions": {
+
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Operations about authentication"
+    },
+    {
+      "name": "Accounts",
+      "description": "Operations about accounts"
+    },
+    {
+      "name": "Profiles",
+      "description": "Operations about profiles"
+    },
+    {
+      "name": "Transactions",
+      "description": "Operations about transactions"
+    },
+    {
+      "name": "Users",
+      "description": "Operations about users"
+    }
+  ]
+}

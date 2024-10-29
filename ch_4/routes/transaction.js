@@ -6,12 +6,35 @@ import { prisma } from '../src/PrismaClient.js';
 
 const router = Router();
 
+/**
+ * @swagger
+ * @typedef Transaction
+ * @property {number} source_account_id.required - The ID of the source account (User's ID)
+ * @property {number} destination_account_id.required - The ID of the destination account
+ * @property {number} amount.required - The amount to be transferred (harus lebih besar dari nol)
+ */
+
 // validasi data transaksi
 const transactionSchema = Joi.object({
     source_account_id: Joi.number().required(),
     destination_account_id: Joi.number().required(),
     amount: Joi.number().positive().required(),
 });
+
+/**
+ * @swagger
+ * @route POST /api/v1/transactions
+ * @group Transactions - Operations about transactions
+ * @param {Transaction.model} transaction.body.required - Transaction data
+ * @param {number} transaction.body.source_account_id.required - The ID of the source account
+ * @param {number} transaction.body.destination_account_id.required - The ID of the destination account
+ * @param {number} transaction.body.amount.required - The amount to transfer (must be greater than zero)
+ * @returns {object} 201 - Successful transaction
+ * @returns {Error} 400 - Saldo tidak mencukupi
+ * @returns {Error} 404 - Akun sumber atau tujuan tidak ditemukan
+ * @returns {Error} 500 - Internal server error
+ * @summary Transfer money from one account to another account
+ */ 
 
 // endpoint untuk mengirimkan uang dari satu akun ke akun lain
 router.post('/', async (req, res, next) => {
@@ -64,6 +87,15 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * @route GET /api/v1/transactions
+ * @group Transactions - Operations about transactions
+ * @returns {Array.<Transaction>} 200 - List of transactions
+ * @returns {Error} 500 - Internal server error
+ * @summary Get all transactions
+ */ 
+
 // endpoint untuk menampilkan daftar transaksi
 router.get('/', async (req, res, next) => {
     try {
@@ -73,6 +105,17 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 });
+
+/**
+ * @swagger
+ * @route GET /api/v1/transactions/:transactionId
+ * @group Transactions - Operations about transactions
+ * @param {integer} transactionId.path.required - The ID of the transaction
+ * @returns {object} 200 - Transaction detail
+ * @returns {Error} 404 - Transaction not found
+ * @returns {Error} 500 - Internal server error
+ * @summary Get transaction detail by Transaction ID
+ */ 
 
 // endpoint untuk menampilkan detail transaksi berdasarkan transactionId
 router.get('/:transactionId', async (req, res, next) => {

@@ -5,6 +5,18 @@ import { Profile } from '../services/profile.js';
 
 const router = Router();
 
+/**
+ * @swagger
+ * @typedef User
+ * @property {string} name.required - User's name
+ * @property {string} email.required - User's email
+ * @property {string} password.required - User's password
+ * @property {object} profile.required - Profile object
+ * @property {string} profile.identity_type.required - Identity type (e.g. KTP, KK, SIM)
+ * @property {string} profile.identity_number.required - Identity number
+ * @property {string} profile.address.required - Address
+ */
+
 // validasi data user dan profile
 const userSchema = Joi.object({
     name: Joi.string().required(),
@@ -16,6 +28,24 @@ const userSchema = Joi.object({
         address: Joi.string().required(),
     }).required(), 
 });
+
+/**
+ * @swagger
+ * @route POST /api/v1/users
+ * @group Users - Operations about users
+ * @param {User.model} user.body.required - User's data
+ * @param {string} user.body.name.required - User's name
+ * @param {string} user.body.email.required - User's email
+ * @param {string} user.body.password.required - User's password
+ * @param {Profile.model} user.body.profile.required - Profile information
+ * @param {string} user.body.profile.identity_type.required - Type of identity (e.g., KTP, KK)
+ * @param {string} user.body.profile.identity_number.required - Unique identity number
+ * @param {string} user.body.profile.address.required - User's address
+ * @returns {object} 201 - Successfully created user
+ * @returns {Error}  400 - Invalid input data
+ * @returns {Error}  500 - Internal server error
+ * @summary Create a new user and a new profile
+ */
 
 // endpoint menambahkan data user dan profile
 router.post('/', async (req, res, next) => {
@@ -50,7 +80,14 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-
+/**
+ * @swagger
+ * @route GET /api/v1/users
+ * @group Users - Operations about users
+ * @returns {Array.<User>} 200 - List of users
+ * @returns {Error} 500 - Internal server error
+ * @summary Get all users
+ */
 
 // endpoint untuk menampilkan daftar user
 router.get('/', async (req, res, next) => {
@@ -61,6 +98,17 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 });
+
+/**
+ * @swagger
+ * @route GET /api/v1/users/:userId
+ * @group Users - Operations about users
+ * @param {integer} userId.path.required - User ID
+ * @returns {object} 200 - User's detail with profile
+ * @returns {Error}  404 - User not found
+ * @returns {Error}  500 - Internal server error
+ * @summary Get user detail by ID
+ */
 
 // endpoint untuk menampilkan detail informasi user dan profilenya
 router.get('/:userId', async (req, res, next) => {
@@ -90,6 +138,17 @@ router.get('/:userId', async (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * @route DELETE /api/v1/users/:userId
+ * @group Users - Operations about users
+ * @param {integer} userId.path.required - User ID
+ * @returns {object} 204 - User successfully deleted
+ * @returns {Error} 404 - User not found
+ * @returns {Error} 500 - Internal server error
+ * @summary Delete a user by ID
+ */
+
 // endpoint untuk menghapus data user dan profilenya
 router.delete('/:userId', async (req, res, next) => {
     const userId = parseInt(req.params.userId);
@@ -103,6 +162,31 @@ router.delete('/:userId', async (req, res, next) => {
         res.status(204).send(); 
     } catch (error) {
         next(error);
+    }
+});
+
+/**
+ * @swagger
+ * @route POST /api/v1/auth/register
+ * @group Users - Operations about users
+ * @param {string} name.body.required - User's full name
+ * @param {string} password.body.required - User's password
+ * @returns {Error} 400 - Email sudah digunakan
+ * @returns {Error} 500 - Internal server error
+ * @summary Register user 
+ */
+
+// endpoit untuk register
+router.post('/register', async(req, res) => {
+    const { name,  password } = req.body;
+
+    try {
+        const user = await User.createUser(name, password); // buat user baru di register
+    } catch {
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).json({ message: 'Email sudah digunakan' });
+        }
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
