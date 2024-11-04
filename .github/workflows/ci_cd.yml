@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - ch
+    pull_request:
+      branches:
+        - ch
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v4
+        with:
+          path: ch_4
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+
+        - name: Install Depedencies
+          run: |
+            cd ch_4
+            npm install
+
+        - name: Run Linter
+          run: |
+            cd ch_4
+            npm run lint
+
+        - name: Upload Coverage to Codecov
+          uses: codecov/codecov-action@v4
+          with:
+            fail_ci_if_error: true
+            files: ch_4/coverage/*.json
+            flags: unittests
+            name: codecov-binar
+            token: ${{ secrets.CODECOV_TOKEN }}
