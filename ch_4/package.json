@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "cross-env NODE_OPTIONS='--experimental-require-module' jest --config=jest.config.mjs --coverage",
-    "test:watch": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll"
+    "test:watch": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+    "lint": "eslint."
   },
   "author": "audi",
   "license": "MIT",
