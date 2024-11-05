@@ -32,7 +32,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           fail_ci_if_error: true
-          files: ch_4/coverage/*.json
+          files: ch_4/coverage/lcov.info
           flags: unittests
           name: codecov-binar
           token: ${{ secrets.CODECOV_TOKEN }}
