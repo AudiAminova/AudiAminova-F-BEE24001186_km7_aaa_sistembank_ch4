@@ -39,7 +39,7 @@ app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/auth', authRoutes);
 
 // error handling
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     console.error(err.stack);
     if (err.isJoi) {
       res.status(400).json({

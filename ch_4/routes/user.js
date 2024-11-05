@@ -182,7 +182,7 @@ router.post('/register', async(req, res) => {
 
     try {
         const user = await User.createUser(name, password); // buat user baru di register
-    } catch {
+    } catch (error) {
         if (error.name === 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ message: 'Email sudah digunakan' });
         }
