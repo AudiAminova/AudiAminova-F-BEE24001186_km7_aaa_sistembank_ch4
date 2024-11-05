@@ -171,6 +171,7 @@ router.delete('/:userId', async (req, res, next) => {
  * @group Users - Operations about users
  * @param {string} name.body.required - User's full name
  * @param {string} password.body.required - User's password
+ * @returns {object} 201 - User berhasil dibuat
  * @returns {Error} 400 - Email sudah digunakan
  * @returns {Error} 500 - Internal server error
  * @summary Register user 
@@ -181,7 +182,8 @@ router.post('/register', async(req, res) => {
     const { name,  password } = req.body;
 
     try {
-        const user = await User.createUser(name, password); // buat user baru di register
+        await User.createUser(name, password); // buat user baru di register
+        return res.status(201).json({ message: 'User berhasil dibuat' });
     } catch (error) {
         if (error.name === 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ message: 'Email sudah digunakan' });
