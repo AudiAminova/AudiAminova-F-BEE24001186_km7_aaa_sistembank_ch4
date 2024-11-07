@@ -11,7 +11,11 @@ import flash from 'express-flash';
 import passport from 'passport';
 import './src/passport-setup.js';
 import swaggerSetup from './swagger.js';
+import dotenv from 'dotenv';
+import mediaRouter from './routes/media.routes.js'; 
 
+
+dotenv.config();
 const app = express();
 const port = 4000;
 
@@ -29,6 +33,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/images', express.static('public/images'));
 
 swaggerSetup(app);
 
@@ -37,6 +42,7 @@ app.use('/api/v1/accounts', bankAccountRoutes);
 app.use('/api/v1/profiles', profileRoutes);
 app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/images', mediaRouter)
 
 // error handling
 app.use((err, req, res) => {

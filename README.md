@@ -88,7 +88,7 @@ GET http://localhost:4000/api/v1/transactions
 14. Menampilkan Detail Transaksi Berdasarkan transactionId
 http://localhost:4000/api/v1/transactions/:transactionId
 
-Challenge Chapter 5
+~CHALLENGE CHAPTER 5~
 1. Registerasi User
 POST http://localhost:4000/api/v1/auth/register
 {
@@ -126,6 +126,32 @@ Argument `id` is missing.
 5. Melihat API Documentation
 /ch_4 -> node app.js -> follow link http://localhost:4000/api-docs
 
-6. Unit Testing (jest) dan Integration Testing (supertest)
-Endpoit yang di test adalah POST /api/v1/users
+6. Unit Testing (jest) 
 /ch_4 -> npm run test
+
+~CHALLENGE CHAPTER 6~
+1. Upload Gambar
+POST http://localhost:4000/api/v1/images
+Pilih tipe body form-data di Postman: 
+Key: title, description, image (file)
+value: 
+- Masukkan judul gambar
+- Masukkan deskripsi gambar
+- Pilih gambar yang akan diunggah dari komputer
+
+2. Melihat Daftar Gambar
+GET http://localhost:4000/api/v1/images
+
+3. Melihat Detail Gambar Berdasarkan ID
+GET http://localhost:4000/api/v1/images/:id
+
+4. Menghapus Gambar Berdasarkan ID 
+DELETE http://localhost:4000/api/v1/images/:id
+
+5. Edit Judul dan Deskripsi Gambar Berdasarkan ID
+PUT http://localhost:4000/api/v1/images/:id
+Pilih tipe body raw dan format JSON,
+{
+  "title": "Judul baru",
+  "description": "Deskripsi baru gambar"
+}

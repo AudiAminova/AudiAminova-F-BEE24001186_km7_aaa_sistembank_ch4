@@ -48,3 +48,10 @@ model Transaction {
   destination_account_id    Int
   amount                    Float
 }
+
+model Image {
+  id            Int     @id@default(autoincrement())
+  title         String
+  description   String
+  image_url     String
+}
