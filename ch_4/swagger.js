@@ -1,5 +1,4 @@
 // konfigurasi swagger
-import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerGenerator from 'express-swagger-generator';
 

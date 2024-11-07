@@ -3,7 +3,6 @@ import express from 'express';
 import { register, dashboard, login } from '../controllers/authController.js';
 // import passport from 'passport';
 import { restrict } from '../middlewares/restrict.js';
-import jwt from 'jsonwebtoken';
 import { whoami } from '../controllers/authController.js';
 
 const router = express.Router();

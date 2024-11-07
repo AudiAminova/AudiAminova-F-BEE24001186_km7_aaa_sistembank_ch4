@@ -227,7 +227,7 @@ router.get('/bank-account', authenticateJWT, async (req, res) => {
 
         res.json(bankAccount);
     } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 });
 

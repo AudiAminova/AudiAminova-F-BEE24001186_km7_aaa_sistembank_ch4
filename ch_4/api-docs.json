@@ -50,6 +50,9 @@
           "Users"
         ],
         "responses": {
+          "201": {
+            "description": "User berhasil dibuat"
+          },
           "400": {
             "description": "Email sudah digunakan"
           },
@@ -379,6 +382,168 @@
           }
         },
         "summary": "Retrieve bank account details for the authenticated user"
+      }
+    },
+    "/api/v1/images": {
+      "post": {
+        "parameters": [
+          {
+            "name": "title",
+            "in": "body",
+            "description": "The title of the image",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "The description of the image",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "body",
+            "description": "The image file to upload (JPEG or PNG)",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Media"
+        ],
+        "responses": {
+          "201": {
+            "description": "Gambar berhasil diunggah"
+          },
+          "400": {
+            "description": "Upload failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Upload a new image"
+      },
+      "get": {
+        "parameters": [],
+        "description": "",
+        "tags": [
+          "Media"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all images",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get a list of all images"
+      }
+    },
+    "/api/v1/images/:id": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Image ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Media"
+        ],
+        "responses": {
+          "200": {
+            "description": "Detail gambar berhasil diambil"
+          },
+          "404": {
+            "description": "Gagal mengambil daftar gambar"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Get details of a specific image by ID"
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Image ID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Media"
+        ],
+        "responses": {
+          "204": {
+            "description": "Image successfully deleted"
+          },
+          "404": {
+            "description": "Image not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Delete an image by ID"
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Image ID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "description": "The new title of the image",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "The new description of the image",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "description": "",
+        "tags": [
+          "Media"
+        ],
+        "responses": {
+          "200": {
+            "description": "Gambar berhasil diperbarui"
+          },
+          "400": {
+            "description": "Gagal memperbarui gambar"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "summary": "Update an image's title and description"
       }
     },
     "/api/v1/profiles/:userId": {
@@ -776,6 +941,10 @@
     {
       "name": "Accounts",
       "description": "Operations about accounts"
+    },
+    {
+      "name": "Media",
+      "description": "Operations about media images"
     },
     {
       "name": "Profiles",

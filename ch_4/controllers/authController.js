@@ -1,10 +1,9 @@
 import { prisma } from '../src/PrismaClient.js';
-import { User } from '../services/user.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 // fungsi register
-export const register = async (req, res, next) => {
+export const register = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
@@ -112,7 +111,7 @@ export const authUser = async (email, password, done) => {
     }
 };
 
-export const dashboard = async (req, res, next) => {
+export const dashboard = async (req, res) => {
     if (!req.user) {
         req.flash('error_msg', 'Anda harus login terlebih dahulu');
         return res.redirect('/api/v1/auth/login');
@@ -122,7 +121,7 @@ export const dashboard = async (req, res, next) => {
 };
 
 // fungsi whoami
-export const whoami = async (req, res, next) => {
+export const whoami = async (req, res) => {
     return res.status(201).json({
         status: true,
         message: 'OKEY',

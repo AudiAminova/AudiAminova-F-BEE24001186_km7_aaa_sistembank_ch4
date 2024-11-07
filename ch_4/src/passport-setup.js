@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { authUser } from '../controllers/authController.js';
+import { prisma } from './PrismaClient.js';
 
 // inisialisasi passport
 passport.use(new LocalStrategy(
