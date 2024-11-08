@@ -29,12 +29,13 @@ jobs:
       - name: Setup Environment
          run: |
           cd ch_4
-          touch .env
-          echo "DATABASE_URL='${{ secrets.DATABASE_URL }}'" >> .env
-          echo "SECRET_KEY='${{ secrets.SECRET_KEY }}'" >> .env
-          echo "IMAGEKIT_PUBLIC_KEY='${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> .env
-          echo "IMAGEKIT_PRIVATE_KEY='${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> .env
-          echo "IMAGEKIT_URL_ENDPOINT='${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> .env
+          touch env.yaml
+          echo "env_variables:" >> env.yaml
+          echo "DATABASE_URL='${{ secrets.DATABASE_URL }}'" >> env.yaml
+          echo "SECRET_KEY='${{ secrets.SECRET_KEY }}'" >> env.yaml
+          echo "IMAGEKIT_PUBLIC_KEY='${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> env.yaml
+          echo "IMAGEKIT_PRIVATE_KEY='${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
+          echo "IMAGEKIT_URL_ENDPOINT='${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
 
       - name: Google Cloud Auth
         uses: 'google-github-actions/auth@v2'
