@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "test": "cross-env NODE_OPTIONS='--experimental-require-module' jest --config=jest.config.mjs --coverage",
     "test:watch": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --watch.",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "prisma generate",
+    "start": "node app.js",
+    "prisma: deploy": "gcloud app deploy"
   },
   "author": "audi",
   "license": "MIT",
