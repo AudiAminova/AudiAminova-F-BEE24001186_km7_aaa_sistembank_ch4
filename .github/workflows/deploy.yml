@@ -26,16 +26,23 @@ jobs:
           cd ch_4
           npm install --frozen-lockfile
 
+      -- name: Set up Cloud SQL instance variable
+        env:
+          CLOUD_SQL_INSTANCE: ${{ secrets.CLOUD_SQL_INSTANCE }}
+        run: |
+          echo "beta_settings:" >> app.yaml
+          echo "  cloud_sql_instances: '$CLOUD_SQL_INSTANCE'" >> app.yaml
+
       - name: Setup Environment
         run: |
           cd ch_4
           touch env.yaml
-          echo "env_variables:" >> env.yaml
-          echo "DATABASE_URL='${{ secrets.DATABASE_URL }}'" >> env.yaml
-          echo "SECRET_KEY='${{ secrets.SECRET_KEY }}'" >> env.yaml
-          echo "IMAGEKIT_PUBLIC_KEY='${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> env.yaml
-          echo "IMAGEKIT_PRIVATE_KEY='${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
-          echo "IMAGEKIT_URL_ENDPOINT='${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
+          echo "env_variables: " >> env.yaml
+          echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> env.yaml
+          echo "  SECRET_KEY: '${{ secrets.SECRET_KEY }}'" >> env.yaml
+          echo "  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> env.yaml
+          echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
+          echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
 
       - name: Google Cloud Auth
         uses: 'google-github-actions/auth@v2'
