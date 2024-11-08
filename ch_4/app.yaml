@@ -1,0 +1,19 @@
+runtime: nodejs
+env: flex
+
+runtime_config:
+  operating_system: 'ubuntu22'
+  runtime_version: '20'
+
+manual_scaling:
+  instances: 1
+
+env_variables:
+  DATABASE_URL: '${{ secrets.DATABASE_URL }}'
+  SECRET_KEY: '${{ secrets.SECRET_KEY }}'
+  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'
+  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'
+  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'
+
+beta_settings:
+  cloud_sql_instances: binar-km-7:asia-southeast2:binar
