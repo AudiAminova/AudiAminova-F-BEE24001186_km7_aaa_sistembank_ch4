@@ -11,3 +11,5 @@ manual_scaling:
 includes:
   - env.yaml
 
+resources:
+  memory_gb: 4
