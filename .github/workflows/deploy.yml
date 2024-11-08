@@ -30,6 +30,7 @@ jobs:
         env:
           CLOUD_SQL_INSTANCE: ${{ secrets.CLOUD_SQL_INSTANCE }}
         run: |
+          cd ch_4
           echo "beta_settings:" >> app.yaml
           echo "  cloud_sql_instances: '$CLOUD_SQL_INSTANCE'" >> app.yaml
 
@@ -56,4 +57,4 @@ jobs:
       - name: Deploy to Google App Engine
         run: |
           cd ch_4
-          gcloud app deploy app.yaml --quiet
+          gcloud app deploy 
