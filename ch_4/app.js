@@ -65,6 +65,14 @@ app.use((req, res, next) => {
   console.log('Error message:', res.locals.error_msg); 
   next();
 });
+
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
   
   app.listen(port, () => {
     console.log(`Server running on port http://localhost:${port}`);
