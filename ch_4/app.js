@@ -17,7 +17,7 @@ import mediaRouter from './routes/media.routes.js';
 
 dotenv.config();
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000; 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
