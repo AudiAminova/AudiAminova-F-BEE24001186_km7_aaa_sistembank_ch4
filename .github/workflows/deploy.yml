@@ -1,4 +1,4 @@
-name: Deploy to Goggle App Engine (GAE)
+name: Deploy to Google App Engine (GAE)
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
           npm install --frozen-lockfile
 
       - name: Setup Environment
-         run: |
+        run: |
           cd ch_4
           touch env.yaml
           echo "env_variables:" >> env.yaml
