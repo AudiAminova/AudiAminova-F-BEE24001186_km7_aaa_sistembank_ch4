@@ -37,6 +37,11 @@ app.use('/images', express.static('public/images'));
 
 swaggerSetup(app);
 
+// route untuk root
+app.get('/', (req, res) => {
+  res.send('Selamat Datang!');
+});
+
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/accounts', bankAccountRoutes);
 app.use('/api/v1/profiles', profileRoutes);
