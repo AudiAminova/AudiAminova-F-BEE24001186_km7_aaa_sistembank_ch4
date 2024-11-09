@@ -45,18 +45,19 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/images', mediaRouter)
 
 // error handling
-app.use((err, req, res) => {
-    console.error(err.stack);
-    if (err.isJoi) {
-      res.status(400).json({
-        message: err.message
-      });
-    } else {
-      res.status(500).json({
-        message: 'Internal server error',
-      });
-    }
-  });
+app.use((err, req, res, next) => { 
+  console.error(err.stack);
+  if (err.isJoi) {
+    res.status(400).json({
+      message: err.message
+    });
+  } else {
+    res.status(500).json({
+      message: 'Kesalahan server internal',
+    });
+  }
+  next();
+});
 
 // untuk memberikan pesan flash ke response
 app.use((req, res, next) => {
