@@ -14,6 +14,8 @@ model User {
   password    String  
   bank_accounts BankAccount[]   // one to many
   profile     Profile?  // one to one
+  resetToken  String?   // token reset password
+  expired_at  DateTime?  // waktu kedaluwarsa token reset
 
   @@map("users")
 }
@@ -27,6 +29,8 @@ model BankAccount {
   balance               Float
   transaction_sent      Transaction[]   @relation("sender")
   transaction_received  Transaction[]   @relation("receiver")
+
+  @@map("bank_accounts")
 }
 
 model Profile { 
@@ -47,6 +51,8 @@ model Transaction {
   destination_account       BankAccount   @relation("receiver", fields: [destination_account_id], references: [id])
   destination_account_id    Int
   amount                    Float
+
+  @@map("transactions")
 }
 
 model Image {
@@ -54,4 +60,6 @@ model Image {
   title         String
   description   String
   image_url     String
+
+  @@map("images")
 }

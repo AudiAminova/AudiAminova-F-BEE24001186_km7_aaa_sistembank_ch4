@@ -88,7 +88,7 @@ GET http://localhost:4000/api/v1/transactions
 14. Menampilkan Detail Transaksi Berdasarkan transactionId
 http://localhost:4000/api/v1/transactions/:transactionId
 
-~CHALLENGE CHAPTER 5~
+*CHALLENGE CHAPTER 5*
 1. Registerasi User
 POST http://localhost:4000/api/v1/auth/register
 {
@@ -129,7 +129,7 @@ Argument `id` is missing.
 6. Unit Testing (jest) 
 /ch_4 -> npm run test
 
-~CHALLENGE CHAPTER 6~
+*CHALLENGE CHAPTER 6*
 1. Upload Gambar
 POST http://localhost:4000/api/v1/images
 Pilih tipe body form-data di Postman: 
@@ -155,3 +155,42 @@ Pilih tipe body raw dan format JSON,
   "title": "Judul baru",
   "description": "Deskripsi baru gambar"
 }
+
+*CHALLENGE CHAPTER 7*
+1. Register
+POST http://localhost:4000/api/v1/auth/register
+{
+    "name": "bubu",
+    "email": "bubu@gmail.com",
+    "password": "bubu"
+}
+
+2. Lupa Password
+POST http://localhost:4000/api/v1/auth/forgot-password
+{
+    "email": "bubu@gmail"
+}
+
+Token baru akan dikirimkan ke email Anda. Setelah menekan tombol 'Reset Password', Anda akan diarahkan ke http://localhost:4000/api/v1/auth/reset-password/${token}, kemudian salin token tersebut.
+
+3. Reset Password
+POST http://localhost:4000/api/v1/auth/reset-password
+{
+    "resetToken": "your_token",
+    "newPassword": "bubu23"
+}
+
+Masukkan token yang diterima melalui email yang telah dikirimkan dan buatlah password baru, kemudian coba lagi untuk melakukan login.
+
+4. Notifications
+GET http://localhost:4000/notifications
+Pastikan user sudah terkoneksi "A user connected to /notifications".
+Lakukan registrasi atau reset password, anda akan mendapatkan notifikasi telah berhasil register atau reset password.
+
+Jika mengalami error seperti ini:
+"Can't reach database server at `ep-falling-heart-a1tr9b97.ap-southeast-1.aws.neon.tech:5432`
+Please make sure your database server is running at `ep-falling-heart-a1tr9b97.ap-southeast-1.aws.neon.tech:5432`."
+Mohon mengirim ulang permintaan.
+
+
+

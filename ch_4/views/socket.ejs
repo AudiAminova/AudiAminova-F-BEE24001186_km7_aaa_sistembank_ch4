@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Notifications</title>
+</style>
+</head>
+<body>
+  <div id="notifications"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    var socket = io('/notifications');
+
+    socket.on('notification', function(data) {
+      document.getElementById('notifications').innerText = data.message;
+    });
+  </script>
+</body>
+</html>

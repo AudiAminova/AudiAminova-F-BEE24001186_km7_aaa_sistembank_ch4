@@ -3,7 +3,7 @@ import express from 'express';
 import { register, dashboard, login } from '../controllers/authController.js';
 // import passport from 'passport';
 import { restrict } from '../middlewares/restrict.js';
-import { whoami } from '../controllers/authController.js';
+import { forgotPassword, resetPassword,whoami } from '../controllers/authController.js';
 
 const router = express.Router();
 
@@ -86,5 +86,43 @@ router.get('/dashboard',  restrict, dashboard);
  */
 
 router.get('/whoami', restrict, whoami);
+
+/**
+ * @swagger
+ * @route POST /api/v1/auth/forgot-password
+ * @group Auth - Operation about authentication forgot password
+ * @returns {object} 200 - Email untuk reset password telah dikirim
+ * @returns {Error} 404 - Email tidak ditemukan
+ * @returns {Error} 500 - Gagal mengirim email
+ * @summary Sending a forgotten password request
+ */
+
+router.post('/forgot-password', forgotPassword);
+
+/**
+ * @swagger
+ * @route GET /api/v1/auth/reset-password
+ * @group Auth - Operation about authentication reset password
+ * @returns {object} 200 - Display password reset page
+ * @returns {Error} 500 - Internal server error
+ * @summary Get page to reset password
+ */
+
+router.get('/reset-password/:token', (req, res) => {
+    const token = req.params.token; // mendapatkan token dari parameter rute
+    res.render('reset-pw.ejs', { token }); // mengirim token ke views
+});
+
+/**
+ * @swagger
+ * @route POST /api/v1/auth/reset-password
+ * @group Auth - Operation about authentication reset password
+ * @returns {object} 200 - Password berhasil direset
+ * @returns {Error} 400 - Invalid input
+ * @returns {Error} 500 - Gagal mereset password atau token tidak valid
+ * @summary Sending new password reset and reset token
+ */
+
+router.post('/reset-password', resetPassword);
 
 export default router;
