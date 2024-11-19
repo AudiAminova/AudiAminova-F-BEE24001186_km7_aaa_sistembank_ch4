@@ -224,7 +224,7 @@ export const forgotPassword = async (req, res) => {
 `, 
         };
         
-        transporter.sendMail(mailOptions, function(error, info) {
+        transporter.sendMail(mailOptions, function(error) {
             if (error) {
                 console.log(error);
                 return res.status(500).json({ message: 'Gagal mengirim email' });

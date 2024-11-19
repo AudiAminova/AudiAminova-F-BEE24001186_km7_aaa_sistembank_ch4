@@ -70,7 +70,7 @@ app.use('/api/v1/transactions', transactionRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/images', mediaRouter);
 
-app.get("/debug-sentry", function mainHandler(req, res) {
+app.get("/debug-sentry", function mainHandler() {
   throw new Error("My first Sentry error!");
 });
 
