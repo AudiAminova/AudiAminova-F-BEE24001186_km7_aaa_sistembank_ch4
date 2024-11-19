@@ -218,7 +218,7 @@ export const forgotPassword = async (req, res) => {
     <div class="container">
         <h2>ANDA SEDANG RESET PASSWORD</h2>
         <p>Untuk mendapatkan token dan membuat password baru, tekan tombol di bawah ini.</p>
-        <a href="http://localhost:4000/api/v1/auth/reset-password/${token}" class="button">Reset Password</a>
+        <a href="https://binar-km-7.et.r.appspot.com/api/v1/auth/reset-password/${token}" class="button">Reset Password</a>
     </div>
 </body>
 `, 
