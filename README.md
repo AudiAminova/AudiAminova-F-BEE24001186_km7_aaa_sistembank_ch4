@@ -131,7 +131,7 @@ Argument `id` is missing.
 
 *CHALLENGE CHAPTER 6*
 1. Upload Gambar
-POST http://localhost:4000/api/v1/images
+POST https://binar-km-7.et.r.appspot.com/api/v1/images
 Pilih tipe body form-data di Postman: 
 Key: title, description, image (file)
 value: 
@@ -140,16 +140,16 @@ value:
 - Pilih gambar yang akan diunggah dari komputer
 
 2. Melihat Daftar Gambar
-GET http://localhost:4000/api/v1/images
+GET https://binar-km-7.et.r.appspot.com/api/v1/images
 
 3. Melihat Detail Gambar Berdasarkan ID
-GET http://localhost:4000/api/v1/images/:id
+GET https://binar-km-7.et.r.appspot.com/api/v1/images/:id
 
 4. Menghapus Gambar Berdasarkan ID 
-DELETE http://localhost:4000/api/v1/images/:id
+DELETE https://binar-km-7.et.r.appspot.com/api/v1/images/:id
 
 5. Edit Judul dan Deskripsi Gambar Berdasarkan ID
-PUT http://localhost:4000/api/v1/images/:id
+PUT https://binar-km-7.et.r.appspot.com/api/v1/images/:id
 Pilih tipe body raw dan format JSON,
 {
   "title": "Judul baru",
@@ -158,7 +158,7 @@ Pilih tipe body raw dan format JSON,
 
 *CHALLENGE CHAPTER 7*
 1. Register
-POST http://localhost:4000/api/v1/auth/register
+POST https://binar-km-7.et.r.appspot.com/api/v1/auth/register
 {
     "name": "bubu",
     "email": "bubu@gmail.com",
@@ -166,7 +166,7 @@ POST http://localhost:4000/api/v1/auth/register
 }
 
 2. Lupa Password
-POST http://localhost:4000/api/v1/auth/forgot-password
+POST https://binar-km-7.et.r.appspot.com/api/v1/auth/forgot-password
 {
     "email": "bubu@gmail"
 }
@@ -174,7 +174,7 @@ POST http://localhost:4000/api/v1/auth/forgot-password
 Token baru akan dikirimkan ke email Anda. Setelah menekan tombol 'Reset Password', Anda akan diarahkan ke http://localhost:4000/api/v1/auth/reset-password/${token}, kemudian salin token tersebut.
 
 3. Reset Password
-POST http://localhost:4000/api/v1/auth/reset-password
+POST https://binar-km-7.et.r.appspot.com/api/v1/auth/reset-password
 {
     "resetToken": "your_token",
     "newPassword": "bubu23"
@@ -183,7 +183,7 @@ POST http://localhost:4000/api/v1/auth/reset-password
 Masukkan token yang diterima melalui email yang telah dikirimkan dan buatlah password baru, kemudian coba lagi untuk melakukan login.
 
 4. Notifications
-GET http://localhost:4000/notifications
+GET https://binar-km-7.et.r.appspot.com/notifications
 Pastikan user sudah terkoneksi "A user connected to /notifications".
 Lakukan registrasi atau reset password, anda akan mendapatkan notifikasi telah berhasil register atau reset password.
 
