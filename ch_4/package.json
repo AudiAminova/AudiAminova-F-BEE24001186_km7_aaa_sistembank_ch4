@@ -12,13 +12,17 @@
     "lint": "eslint .",
     "postinstall": "prisma generate",
     "start": "node app.js",
-    "prisma: deploy": "gcloud app deploy"
+    "prisma: deploy": "gcloud app deploy",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org audi-fz --project node  && sentry-cli sourcemaps upload --org audi-fz --project node "
   },
   "author": "audi",
   "license": "MIT",
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.21.1",
+    "@sentry/cli": "^2.38.2",
+    "@sentry/node": "^8.37.1",
+    "@sentry/profiling-node": "^8.37.1",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
@@ -31,9 +35,11 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.13.0",
+    "socket.io": "^4.8.1",
     "supertest": "^7.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"

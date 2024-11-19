@@ -44,6 +44,8 @@ jobs:
           echo "  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> env.yaml
           echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
           echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
+          echo "  DSN: '${{ secrets.DSN }}'" >> env.yaml
+          echo "  PASS: '${{ secrets.PASS }}'" >> env.yaml
 
       - name: Google Cloud Auth
         uses: 'google-github-actions/auth@v2'
